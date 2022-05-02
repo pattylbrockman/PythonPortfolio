@@ -1,0 +1,50 @@
+import pandas as pd
+titanic=pd.read_csv('https://vincentarelbundock.github.io/' + 'Rdatasets/csv/carData/TitanicSurvival.csv')
+
+pd.set_option('precision', 2)
+
+titanic.head()
+
+titanic.tail()
+
+titanic.columns=['name', 'survived', 'sex', 'age', 'class']
+
+titanic.head()
+
+titanic.describe()
+
+with open('accounts.txt', mode='w') as accounts:
+    accounts.write('100 Jones 24.98\n')
+    accounts.write('200 Doe 345.67\n')
+    accounts.write('300 White 0.00\n')
+    accounts.write('400 Stone -42.16\n')
+    accounts.write('500 Rich 224.62\n')
+    
+with open('grades.txt', mode='w') as grades:
+    grades.write('1 Red A\n')
+    grades.write('2 Green B\n')
+    grades.write('3 White A\n')
+    
+with open('accounts.txt', mode='r') as accounts:
+    print(f'{"Account":<10}{"Name":<10}{"Balance":>10}')
+    for record in accounts:
+        account, name, balance= record.split()
+        print(f'{account:<10}{name:<10}{balance:>10}')
+        
+accounts=open('accounts.txt', 'r')
+temp_file=open('temp_file.txt', 'w')
+with accounts, temp_file:
+    for record in accounts:
+        account, name, balance= record.split()
+        if account != '300':
+            temp_file.write(record)
+        else: 
+            new_record=' '.join([account, 'Williams', balance])
+            temp_file.write(new_record + '\n')
+            
+import os
+os.remove('accounts.txt')
+os.rename('temp_file.txt', 'accounts.txt')
+accounts_dict={'accounts': [
+    {'account': 100}
+]}
