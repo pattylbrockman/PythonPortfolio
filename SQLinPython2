@@ -1,0 +1,78 @@
+conda install -c anaconda psycopg2
+
+import psycopg2
+psycopg2.connect(host="localhost", user="postgres", password="redacted", dbname="postgres", port=5433)
+
+ from sqlalchemy import create_engine
+import pandas as pd
+
+%matplotlib inline
+
+cnxn_string=("postgresql+psycopg2://{username}:{pswd}"
+             "@{host}:{port}/{database}")
+print(cnxn_string)
+
+engine=create_engine(cnxn_string.format(
+    username="postgres",
+    pswd="redacted",
+    host="localhost",
+    port=5433,
+    database="postgres"))
+    
+engine.execute("select * from customers limit 2;").fetchall()
+    
+customers_data=pd.read_sql_table('customers', engine)
+
+query="""
+SELECT city,
+count(1) as number_of_customers,
+count(nullif(gender, 'M')) as female,
+count(nullif(gender, 'F')) as male
+from customers
+where city is not null
+group by 1
+order by 2 desc
+limit 10
+"""
+top_cities_data=pd.read_sql_query(query, engine)
+
+top_cities_data
+
+ax=top_cities_data.plot.bar('city', y=['female', 'male'], \
+title='Number of Customers by Gender and City')
+
+top_cities_data.to_sql('top_cities_data', engine,\
+          index=False, if_exists='replace')
+          
+import csv
+from io import StringIO
+
+from sqlalchemy import create_engine
+
+def psql_insert_copy(table, conn, keys, data_iter):
+    # gets a DBAPI connection that can provide a cursor
+    dbapi_conn = conn.connection
+    with dbapi_conn.cursor() as cur:
+        s_buf = StringIO()
+        writer = csv.writer(s_buf)
+        writer.writerows(data_iter)
+        s_buf.seek(0)
+
+        columns = ', '.join('"{}"'.format(k) for k in keys)
+        if table.schema:
+            table_name = '{}.{}'.format(table.schema, table.name)
+        else:
+            table_name = table.name
+
+        sql = 'COPY {} ({}) FROM STDIN WITH CSV'.format(
+            table_name, columns)
+        cur.copy_expert(sql=sql, file=s_buf)
+        
+top_cities_data.to_sql('top_cities_data', engine, 
+            index=False, if_exists='replace', 
+             method=psql_insert_copy)
+             
+top_cities_data.to_csv('top_cities_analysis.csv', index=False)
+my_data=pd.read_csv('top_cities_analysis.csv')
+my_data
+
