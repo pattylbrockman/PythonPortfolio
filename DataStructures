@@ -1,0 +1,71 @@
+def divide(x,y):
+    result=[x/y]
+    return("The quotient is", result)
+divide(2000, 10)
+
+factorial=1
+for i in range(1, 11):
+    factorial=factorial * i
+    print("The factorial of", i, "is", factorial)
+    
+def average(x):
+average=sum(x)/len(x)
+print("The average is", average)
+    
+testlist=[1, -1, 2, -2, 3, -3, 4, -4]
+average(testlist)
+
+testlist=[1, -1, 2, -2, 3, -3, 4, -4]
+N=len(testlist)
+def var(testlist):
+    differencelist=[x-(sum(testlist)/len(testlist)) for x in testlist]
+    squared=[x*x for x in differencelist]
+    return sum(squared)/N
+var(testlist)   
+
+list1 = [ 5.670e-1, -1.480e+0, -5.570e-1, -1.470e+0, 7.340e-1, 1.050e+0, 4.480e-1, 2.570e-1, -1.970e+0, -1.460e+0]
+N=len(list1)
+def var(list1):
+    differencelist=[x-(sum(list1)/len(list1)) for x in list1]
+    squared=[x*x for x in differencelist]
+    return sum(squared)/N
+var(list1)
+
+list2=[-1.780e+0, 2.640e-1, 1.160e+0, 9.080e-1, 1.780e+0, 1.080e+0, 1.050e+0, -4.630e-2, 1.520e+0, 5.350e-1]
+
+
+N=len(list2)
+def var(list2):
+    differencelist=[x-(sum(list2)/len(list2)) for x in list2]
+    squared=[x*x for x in differencelist]
+    return sum(squared)/N
+var(list2)
+
+fifteenlist=['Patty', 'Olivia', 'Mary', 'Johnny', 'Rene', 'Cody', 'Parker', 'Isaiah', 'Becky', 'Kathy', 'James', 'April', 'Ben', 'Katie', 'Emily']
+print(fifteenlist[:5])
+print(fifteenlist[10:15])
+print(fifteenlist[::-1])
+print(fifteenlist[::2])
+print(fifteenlist[::3])
+
+class_dict={'name':'Web Mining and Applied Natural Language Processing', 'course#':'44-620', 'Term':'Summer21 Block2', 'Credits': '3', 'Learning Objectives': ['Manage Python libraries and packages', 'Interact with hosted version control systems', 'programmatically obtain and transform data from web-based APIs and HTML pages into a usable form', 'Describe the steps in a basic Natural Language Processing Pipeline', 'Use preexisting tools and software libraries to perform some Natural Language Processing, such as sentimental analysis', 'Explain results and conclusions drawn from the fisualized information']}
+print(class_dict)
+
+player_character = {'name': 'Kitab',
+                   'class': [('Cleric: Knowledge', 7)],
+                   'spells': {'cantrip': ['Guidance', 'Light', 'Thaumaturgy', 'Toll the Dead', 'Word of Radiance'],
+                             'level 1': ['Command', 'Detect Magic', 'Healing Word', 'Identify', 'Sleep'],
+                             'level 2': ['Augury', 'Calm Emotions', 'Command', 'Invisibility', 'Lesser Restoration'],
+                             'level 3': ['Mass Healing Word', 'Nondetection', 'Revivify', 'Feign Death', 'Speak with Dead'],
+                             'level 4': ['Banishment', 'Confusion']}
+                   }
+                   
+print(player_character['spells']['level 3'])
+
+values = [10, 11, 10, 8, 1, 12, 0, 1, 6, 5, 5, 13, 6, 15, 0, 0, 1, 1, 9, 7]
+my_set=set(values)
+print(my_set)
+len(my_set)
+
+my_set=set(values)
+len(my_set)
