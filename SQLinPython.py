@@ -11,7 +11,7 @@ conda install -c anaconda psycopg2
 
 
 import psycopg2
-psycopg2.connect(host="localhost", user="postgres", password="Pattyls9!", dbname="postgres", port=5433)
+psycopg2.connect(host="localhost", user="postgres", password="redacted", dbname="postgres", port=5433)
 
 
 # In[8]:
